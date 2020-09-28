@@ -1,22 +1,40 @@
 /*******************************************************************
  *  A simple Macro keyboard built with Arduino Pro Micro
- *                                                                 
+ *  https://learn.sparkfun.com/tutorials/pro-micro--fio-v3-hookup-guide/hardware-overview-pro-micro
+ *
+ * MIT License
+ *
+ * Copyright (c) 2020 Eric B Dalquist
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  *******************************************************************/
 
-// ----------------------------
-// Standard Libraries
-// ----------------------------
-
+// https://github.com/NicoHood/HID
 #include <HID-Project.h>
 #include <HID-Settings.h>
-// https://github.com/NicoHood/HID
 
-#include <SimpleRotary.h>
 // https://github.com/mprograms/SimpleRotary/blob/master/src/SimpleRotary.h
+#include <SimpleRotary.h>
 
+// https://github.com/bxparks/AceButton
 #include <AceButton.h>
 using namespace ace_button;
-// https://github.com/bxparks/AceButton
 
 
 // Button Pinout
@@ -26,16 +44,23 @@ const int GREEN_PIN = 5;
 const int YELLOW_PIN = 2;
 const int BLACK_PIN = 6;
 
-const int LED_PIN =  17;      // the number of the LED pin (RXLED) on ProMicro
+// ProMicro onboard LED pin (RXLED)
+const int LED_PIN =  17;
 
+// Create AceButton wrappers
 AceButton redButton(RED_PIN);
 AceButton blueButton(BLUE_PIN);
 AceButton greenButton(GREEN_PIN);
 AceButton yellowButton(YELLOW_PIN);
 AceButton blackButton(BLACK_PIN);
 
+// Create Rotary Switch wrapper
+const int ROATARY_A_PIN = 20; // A2
+const int ROATARY_B_PIN = 21; // A3
+const int ROATARY_S_PIN = 19; // A1
 SimpleRotary rotary(20, 21, 19);
 
+# AceButton event handler
 void handleEvent(AceButton*, uint8_t, uint8_t);
 
 void setup() {
@@ -44,7 +69,7 @@ void setup() {
   // initialize the LED pin as an output:
   pinMode(LED_PIN, OUTPUT);
 
-  // initialize the pushbutton pins as an input:
+  // initialize the pushbutton pins as an input with onboard pullup:
   pinMode(RED_PIN, INPUT_PULLUP);
   pinMode(BLUE_PIN, INPUT_PULLUP);
   pinMode(GREEN_PIN, INPUT_PULLUP);
@@ -57,7 +82,7 @@ void setup() {
   greenButton.setEventHandler(handleEvent);
   yellowButton.setEventHandler(handleEvent);
   blackButton.setEventHandler(handleEvent);
-  
+
   // init media key support
   Consumer.begin();
 }
@@ -93,6 +118,7 @@ void handleEvent(AceButton* button, uint8_t eventType, uint8_t buttonState) {
     switch (button->getPin()) {
       case RED_PIN: {
         Serial.println("RED: Leave");
+        // TODO MS Team's doesn't have a leave shortcut yet :(
         break;
       }
       case BLUE_PIN: {
@@ -106,6 +132,7 @@ void handleEvent(AceButton* button, uint8_t eventType, uint8_t buttonState) {
       }
       case GREEN_PIN: {
         Serial.println("GREEN: Hand");
+        // TODO MS Team's doesn't have a raise-hand shortcut yet :(
         break;
       }
       case YELLOW_PIN: {
@@ -119,11 +146,12 @@ void handleEvent(AceButton* button, uint8_t eventType, uint8_t buttonState) {
       }
       case BLACK_PIN: {
         Serial.println("BLACK: Password");
-        Keyboard.print("00Foo#1234567");
+        Keyboard.print("XXStu#XXXXXXX");
         break;
       }
     }
   } else {
+    Serial.println("Unknown Button: ");
     Serial.println(button->getPin());
     Serial.println(eventType);
     Serial.println(buttonState);
