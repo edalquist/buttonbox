@@ -60,7 +60,7 @@ const int ROATARY_B_PIN = 21; // A3
 const int ROATARY_S_PIN = 19; // A1
 SimpleRotary rotary(20, 21, 19);
 
-# AceButton event handler
+// AceButton event handler
 void handleEvent(AceButton*, uint8_t, uint8_t);
 
 void setup() {
