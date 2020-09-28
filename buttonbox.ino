@@ -84,7 +84,7 @@ void loop() {
 
   if (rotary.push() == 1) {
     Serial.println("Pushed");
-    Consumer.write(MEDIA_VOLUME_DOWN);
+    Consumer.write(MEDIA_VOLUME_MUTE);
   }
 }
 
