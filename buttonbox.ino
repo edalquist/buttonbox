@@ -63,6 +63,7 @@ SimpleRotary rotary(ROATARY_A_PIN, ROATARY_B_PIN, ROATARY_S_PIN);
 // AceButton event handler
 void handleEvent(AceButton*, uint8_t, uint8_t);
 
+// Initial Setup called by OS.
 void setup() {
   Serial.begin(9600);
 
@@ -87,6 +88,7 @@ void setup() {
   Consumer.begin();
 }
 
+// Main Program Loop called by OS.
 void loop() {
   redButton.check();
   blueButton.check();
