@@ -58,7 +58,7 @@ AceButton blackButton(BLACK_PIN);
 const int ROATARY_A_PIN = 20; // A2
 const int ROATARY_B_PIN = 21; // A3
 const int ROATARY_S_PIN = 19; // A1
-SimpleRotary rotary(20, 21, 19);
+SimpleRotary rotary(ROATARY_A_PIN, ROATARY_B_PIN, ROATARY_S_PIN);
 
 // AceButton event handler
 void handleEvent(AceButton*, uint8_t, uint8_t);
