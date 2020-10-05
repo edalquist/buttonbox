@@ -13,6 +13,7 @@ What I used to put these together. You'll also need a soldering iron and a way t
 * Momentary Buttons - https://www.amazon.com/gp/product/B07F24Y1TB
 * Project Box - https://www.amazon.com/gp/product/B073Y7FW1Q
 * Ribbon Cable Kit - https://www.amazon.com/dp/B07CVYPDGS
+* Right Angle Headers - https://www.amazon.com/gp/product/B07C89T16T
 
 ## Assembly
 
