@@ -117,8 +117,12 @@ void handleEvent(AceButton* button, uint8_t eventType, uint8_t buttonState) {
   if (eventType == AceButton::kEventPressed) {
     switch (button->getPin()) {
       case RED_PIN: {
-        Serial.println("RED: Leave");
-        // TODO MS Team's doesn't have a leave shortcut yet :(
+        Serial.println("RED: Blur");
+        Keyboard.press(KEY_LEFT_CTRL);
+        Keyboard.press(KEY_LEFT_SHIFT);
+        Keyboard.press(KEY_P);
+        delay(100);
+        Keyboard.releaseAll();
         break;
       }
       case BLUE_PIN: {
