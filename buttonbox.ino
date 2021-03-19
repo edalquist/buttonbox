@@ -63,7 +63,6 @@ SimpleRotary rotary(ROATARY_A_PIN, ROATARY_B_PIN, ROATARY_S_PIN);
 // AceButton event handler
 void handleEvent(AceButton*, uint8_t, uint8_t);
 
-// Initial Setup called by OS.
 void setup() {
   Serial.begin(9600);
 
@@ -88,7 +87,6 @@ void setup() {
   Consumer.begin();
 }
 
-// Main Program Loop called by OS.
 void loop() {
   redButton.check();
   blueButton.check();
@@ -138,7 +136,11 @@ void handleEvent(AceButton* button, uint8_t eventType, uint8_t buttonState) {
       }
       case GREEN_PIN: {
         Serial.println("GREEN: Hand");
-        // TODO MS Team's doesn't have a raise-hand shortcut yet :(
+        Keyboard.press(KEY_LEFT_CTRL);
+        Keyboard.press(KEY_LEFT_SHIFT);
+        Keyboard.press(KEY_K);
+        delay(100);
+        Keyboard.releaseAll();
         break;
       }
       case YELLOW_PIN: {
@@ -152,7 +154,7 @@ void handleEvent(AceButton* button, uint8_t eventType, uint8_t buttonState) {
       }
       case BLACK_PIN: {
         Serial.println("BLACK: Password");
-        Keyboard.print("XXStu#XXXXXXX");
+        Keyboard.print("XXXXXXXXXX");
         break;
       }
     }
